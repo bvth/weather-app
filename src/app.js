@@ -1,16 +1,69 @@
 import React from "react";
-import './styles/App.css';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
+import "./styles/app.css";
+import {makeStyles} from "@material-ui/core";
+import Container from "@material-ui/core/Container";
+import AppBar from "@material-ui/core/AppBar";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import Toolbar from "@material-ui/core/Toolbar";
+import MenuIcon from "@material-ui/icons/Menu";
+import Grid from "@material-ui/core/Grid";
+import {toast, ToastContainer} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import WeatherCard from "./weatherCard";
+
+const useStyles = makeStyles(() => ({
+	root: {
+		height: "100%",
+		width: "100%"
+	},
+	container: {
+		paddingTop: 10,
+		paddingBottom: 10,
+		flexGrow: 1
+	},
+	paper: {
+		height: 250,
+		width: "100%"
+	}
+}));
 
 function App() {
-  return (
-      <Container>
-          <Grid container>
+	const classes = useStyles();
+	return (
+		<>
+			<AppBar position="static">
+				<Toolbar>
+					<IconButton edge="start" color="inherit" aria-label="menu">
+						<MenuIcon/>
+					</IconButton>
+					<Typography variant="h6">
+						React weather app
+					</Typography>
+				</Toolbar>
+			</AppBar>
+			<Container className={classes.root}>
+				<Grid container spacing={1} justify="center" className={classes.container}>
+					<Grid item md>
+						<WeatherCard cityName={"Espoo"} aiq={true}/>
+					</Grid>
+					<Grid item md>
+						<WeatherCard cityName={"Helsinki"}/>
 
-          </Grid>
-      </Container>
-  );
+					</Grid>
+					<Grid item md>
+						<WeatherCard cityName={"Vantaa"}/>
+					</Grid>
+				</Grid>
+			</Container>
+			<ToastContainer
+				autoClose={3000}
+				position={toast.POSITION.TOP_RIGHT}
+				pauseOnFocusLoss={true}
+				closeButton={false}/>
+		</>
+	);
 }
 
 export default App;
