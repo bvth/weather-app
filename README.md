@@ -1,2 +1,2 @@
 # weather-app
-A weather written with React
+A weather app written with React
