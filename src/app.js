@@ -11,6 +11,7 @@ import Grid from "@material-ui/core/Grid";
 import {toast, ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import ErrorBoundary from "./errorBoundary";
 import WeatherCard from "./weatherCard";
 
 const useStyles = makeStyles(() => ({
@@ -32,37 +33,39 @@ const useStyles = makeStyles(() => ({
 function App() {
 	const classes = useStyles();
 	return (
-		<>
-			<AppBar position="static">
-				<Toolbar>
-					<IconButton edge="start" color="inherit" aria-label="menu">
-						<MenuIcon/>
-					</IconButton>
-					<Typography variant="h6">
-						React weather app
-					</Typography>
-				</Toolbar>
-			</AppBar>
-			<Container className={classes.root}>
-				<Grid container spacing={1} justify="center" className={classes.container}>
-					<Grid item md>
-						<WeatherCard cityName={"Espoo"} aiq={true}/>
-					</Grid>
-					<Grid item md>
-						<WeatherCard cityName={"Helsinki"}/>
+		<div>
+			<ErrorBoundary>
+				<AppBar position="static">
+					<Toolbar>
+						<IconButton edge="start" color="inherit" aria-label="menu">
+							<MenuIcon/>
+						</IconButton>
+						<Typography variant="h6">
+							React weather app
+						</Typography>
+					</Toolbar>
+				</AppBar>
+				<Container className={classes.root}>
+					<Grid container justify="center" className={classes.container} spacing={2}>
+						<Grid item md>
+							<WeatherCard cityName={"Ho_Chi_Minh"} aiq={true}/>
+						</Grid>
+						<Grid item md>
+							<WeatherCard cityName={"Helsinki"}/>
 
+						</Grid>
+						<Grid item md>
+							<WeatherCard cityName={"Espoo"}/>
+						</Grid>
 					</Grid>
-					<Grid item md>
-						<WeatherCard cityName={"Vantaa"}/>
-					</Grid>
-				</Grid>
-			</Container>
-			<ToastContainer
-				autoClose={3000}
-				position={toast.POSITION.TOP_RIGHT}
-				pauseOnFocusLoss={true}
-				closeButton={false}/>
-		</>
+				</Container>
+				<ToastContainer
+					autoClose={3000}
+					position={toast.POSITION.TOP_RIGHT}
+					pauseOnFocusLoss={true}
+					closeButton={false}/>
+			</ErrorBoundary>
+		</div>
 	);
 }
 
