@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import "./styles/app.css";
 import {makeStyles} from "@material-ui/core";
 import Container from "@material-ui/core/Container";
@@ -13,6 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import ErrorBoundary from "./errorBoundary";
 import WeatherCard from "./weatherCard";
+import WeatherDetail from "./weatherDetail";
 
 const useStyles = makeStyles(() => ({
 	root: {
@@ -32,6 +33,12 @@ const useStyles = makeStyles(() => ({
 
 function App() {
 	const classes = useStyles();
+	const [city, setCity] = useState("Espoo");
+
+	useEffect(() => {
+		console.log(city);
+	}, [city]);
+
 	return (
 		<div>
 			<ErrorBoundary>
@@ -48,16 +55,16 @@ function App() {
 				<Container className={classes.root}>
 					<Grid container justify="center" className={classes.container} spacing={2}>
 						<Grid item md>
-							<WeatherCard cityName={"Ho_Chi_Minh"} aiq={true}/>
+							<WeatherCard cityName={"Ho_Chi_Minh"} aiq={true} setSelection={setCity}/>
 						</Grid>
 						<Grid item md>
-							<WeatherCard cityName={"Helsinki"}/>
-
+							<WeatherCard cityName={"Helsinki"} setSelection={setCity}/>
 						</Grid>
 						<Grid item md>
-							<WeatherCard cityName={"Espoo"}/>
+							<WeatherCard cityName={"Espoo"} setSelection={setCity}/>
 						</Grid>
 					</Grid>
+					{city && <WeatherDetail city={city}/>}
 				</Container>
 				<ToastContainer
 					autoClose={3000}

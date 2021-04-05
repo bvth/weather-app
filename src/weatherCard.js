@@ -24,7 +24,7 @@ export default function WeatherCard(props) {
 	});
 	const [isLoading, setLoadingState] = useState(true);
 	useEffect(() => {
-		let url = "http://api.weatherapi.com/v1/current.json?key=&q=" + props.cityName + "&aqi=" + (props.aiq ? "yes" : "no");
+		let url = "http://api.weatherapi.com/v1/current.json?key=bb25a52770c547b2be1225411210104&q=" + props.cityName + "&aqi=" + (props.aiq ? "yes" : "no");
 		axios.get(url)
 			.then(
 				res => {
@@ -45,7 +45,7 @@ export default function WeatherCard(props) {
 		<Card>
 			{isLoading ? <CircularProgress/>
 				: <CardActionArea onClick={() => {
-					toast.info(props.cityName);
+					props.setSelection(props.cityName);
 				}}>
 					<CardContent>
 						<Grid container spacing={2}>
@@ -82,7 +82,8 @@ export default function WeatherCard(props) {
 
 WeatherCard.propTypes = {
 	cityName: PropTypes.string.isRequired,
-	aiq: PropTypes.bool //air quality
+	aiq: PropTypes.bool, //air quality
+	setSelection: PropTypes.func
 };
 
 WeatherCard.defaultProps = {
